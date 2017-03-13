@@ -1,0 +1,236 @@
+
+package com.CompiladorGraphik.Gramaticas;
+
+import java.io.*;
+import java_cup.runtime.*;
+
+
+
+import java.util.ArrayList;
+
+
+//import static com.compi1.proyecto_1.Vista.arrayvariable;
+
+parser code
+{:
+
+ String expresion="";
+// METODOS Y VARIABLES GLOBALES DEL PARSER, PUEDEN SER PUBLICAS O PRIVADAS
+
+   
+  
+    public void syntax_error(Symbol s){
+        /**Metodo al que se llama automaticamente ante algun error sintactico.*/
+        System.out.println("Error Sintactico en la Linea " + (s.right+1) +" Columna "+s.left+ ". token " +s.value + " no reconocido." );
+    }
+             
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        /**Metodo al que se llama en el momento en que ya no es posible una recuperacion de errores.*/
+        System.out.println("Error Sintactico en la Linea imposible recuperar " + (s.right+1)+ " Columna "+s.left+". token " + s.value + " no reconocido.");
+    }
+
+
+
+:}
+
+
+action code
+{:
+//METODOS Y VARIABLES QUE SOLO PUEDEN SER ACCEDIDAS DENTRO DEL PARSER https://github.com/Esvux/MakerC3D
+ 
+:}
+
+
+
+terminal String numero, identificador, caracter,ndecimal;
+terminal String
+mas,
+menos,
+por,
+div,
+parea,
+eleva,
+parec,
+igual,
+corcha,
+corchc,
+llv1,
+llv2,
+coma,
+dosp,
+puntocoma,
+orr,
+xorr,
+andd,
+nott,
+masmas,
+menosmenos,
+finexp,
+mayorque,
+menorque,
+mayorIgual,
+menorIgual,
+igualIgual,
+noIgual,
+verdadero,
+falso,
+publico,
+protegido,
+privado,
+entero,
+decimal,
+bool,
+cadena,
+
+als,
+vacio,
+importar,
+hereda,
+var,
+nuevo,
+retornar,
+llamar,
+si,
+sino,
+selecciona,
+caso,
+dedefecto,
+para,
+mientras,
+hacer,
+continuar,
+terminar,
+columna,
+procesar,
+donde,
+dondeCadena,
+dondeTodo,
+imprimir,
+incluir_HK,
+
+expresion,
+inicio,
+graphikar_funcion;	
+
+non terminal Object 
+INICIO, 
+GRAPHICK, 
+ENCABEZADO,
+CLASE, 
+VISIBILIDAD,
+CUERPO,
+CUERPO1,
+DECLARARVARGLOBAL,
+ARREGLO,
+
+RETORNAR,
+IF1,
+IF2,
+FOR,
+WHILE,
+DOWHILE,
+FUNCIONGRAPHIK,
+DELCARARFUNCION,
+DECLARARMETODO,
+TIPODATO,
+CONTROL,
+FUN,
+CUERPOMETODO1,
+CUERPOMETODO,
+ASIGNARVAR,
+DECLARARVAR,
+DECLARARASIGNAR,
+INSTANSEAR,
+PARAMETRO,
+DECLARARMETODOPRINCIPAL,
+TIPO,
+IDS,
+DIMENSION,
+DECLARARCIONVAR,
+LLAMARMETODO,
+IMPRIMIR,
+DECLARARARREGLO,
+DECLARARVARGLOBALASIGNAR,
+EXP,
+DECLARARARREGLOASIGNAR,
+ARREGLOMASIGNAR,
+DECLARARASIGANARVAR,
+VAR,
+PARAEXP,
+DECLARARARREGLOBAL, ARREGLOMASIGNAR1;
+
+
+precedence left mayorque, menorque, mayorIgual, menorIgual;
+precedence left igualIgual, noIgual;
+precedence left orr;
+precedence left xorr;
+precedence left andd;
+precedence left nott;
+precedence left mas, menos;
+precedence left por, div;
+precedence left eleva;
+
+
+
+
+
+start with INICIO;
+
+INICIO ::= GRAPHICK;
+
+GRAPHICK::= ENCABEZADO CLASE | ENCABEZADO | CLASE  ;
+
+ENCABEZADO::= incluir_HK identificador finexp  
+	| ENCABEZADO incluir_HK  identificador finexp 
+	| importar identificador finexp 
+	| ENCABEZADO importar identificador finexp 
+	
+	;
+
+CLASE::=  als identificador dosp VISIBILIDAD llv1 CUERPO llv2
+		| als identificador dosp VISIBILIDAD llv1 llv2  
+		| als identificador llv1 CUERPO llv2
+		| als identificador llv1 llv2;
+
+VISIBILIDAD::= protegido | privado | publico ;
+
+CUERPO::= CUERPO CUERPO1| CUERPO1 ;
+
+CUERPO1::=  DECLARARVARGLOBAL finexp
+		  | DECLARARARREGLOBAL finexp
+		  | DECLARARVARGLOBALASIGNAR finexp
+		  | DECLARARARREGLOASIGNAR finexp 
+		  | DELCARARFUNCION;
+
+
+
+
+
+DECLARARVARGLOBALASIGNAR ::= DECLARARVARGLOBAL igual EXP ;
+
+DECLARARARREGLOASIGNAR ::= DECLARARARREGLOBAL igual ARREGLOMASIGNAR ;
+
+ARREGLOMASIGNAR ::= llv1  ARREGLOMASIGNAR1 llv2;
+												
+ARREGLOMASIGNAR1 ::=  ARREGLOMASIGNAR1 coma ARREGLOMASIGNAR2 | ARREGLOMASIGNAR2 ;
+
+ARREGLOMASIGNAR2::= EXP | llv1  ARREGLOMASIGNAR1 llv2 ;
+
+PARAMETRO::= PARAMETRO coma EXP | EXP;
+
+DECLARARVARGLOBAL::= var TIPO IDS dosp VISIBILIDAD | var TIPO IDS ;
+						
+DECLARARARREGLOBAL::= var TIPO IDS DIMENSION dosp VISIBILIDAD | var TIPO IDS DIMENSION;
+
+DIMENSION::= corcha EXP corchc | DIMENSION  corcha EXP corchc ;
+TIPO::= entero | cadena | decimal | caracter | bool ;
+IDS::= IDS coma identificador | identificador ;
+
+EXP::= EXP mas EXP 
+	| EXP menos EXP
+	| EXP por EXP 
+	| EXP div EXP
+	| EXP eleva EXP
+	| parea EXP parec
+	| menos EXP
+	| numero {:System.out.println("numero");:} | identificador {:System.out.println("identificador");:}|caracter|falso|verdadero ;
