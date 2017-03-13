@@ -135,7 +135,7 @@ IMPR = "IMPR",
 PAR= "PAR",
 ASC= "ASC", 
 DESC = "DESC",
-CONCATENAR = "CONCATENAR" ;
+CONCATENAR = "CONCATENAR",OPLIST2 = "OPLIST2";
  
  
  
@@ -236,7 +236,7 @@ IMPR,
 PAR,
 ASC, 
 DESC, 
- CONCATENAR   ;
+ CONCATENAR ,OPLIST2  ;
 
 
 
@@ -355,7 +355,7 @@ CALCULAR ::=calcular:a EXP:b
                         NodeTree nodo = new NodeTree(new Term(calcular), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(CALCULAR));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren(b);  //arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :} 
                     ;
@@ -363,7 +363,7 @@ SUCC::=succ:a dolar FUNCIONHASKELL:b dolar {:
                         NodeTree nodo = new NodeTree(new Term(succ), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(SUCC));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren(b);  //arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :} 
        | succ:a porcentaje:b{:
@@ -371,14 +371,14 @@ SUCC::=succ:a dolar FUNCIONHASKELL:b dolar {:
                         NodeTree nodo1 = new NodeTree(new Term(porcentaje), new Token(new Location(bleft, bright),b));
                         NodeTree nodoEXP = new NodeTree(new Term(SUCC));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, nodo1);  
+                        arbol.addChildren( nodo1); //arbol.addChildren(nodo, nodo1);  
                         RESULT = arbol.root;
                     :} 
        | succ:a dolar LLAMARFUNCION:b dolar{:
                         NodeTree nodo = new NodeTree(new Term(succ), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(SUCC));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren(b);//arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :}
        ;
@@ -386,7 +386,7 @@ DECC::= decc:a dolar FUNCIONHASKELL:b dolar{:
                         NodeTree nodo = new NodeTree(new Term(decc), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(DECC));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren(b);  //arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :}
 
@@ -395,14 +395,14 @@ DECC::= decc:a dolar FUNCIONHASKELL:b dolar{:
                         NodeTree nodo1 = new NodeTree(new Term(porcentaje), new Token(new Location(bleft, bright),b));
                         NodeTree nodoEXP = new NodeTree(new Term(DECC));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, nodo1);  
+                        arbol.addChildren(nodo1);  //arbol.addChildren(nodo, nodo1);  
                         RESULT = arbol.root;
                     :} 
     | decc:a dolar LLAMARFUNCION:b dolar{:
                         NodeTree nodo = new NodeTree(new Term(decc), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(DECC));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren(b);  //arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :};
 
@@ -410,35 +410,35 @@ MIN::=min:a LIST1:b {:
                         NodeTree nodo = new NodeTree(new Term(min), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(MIN));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren(b);  //arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :} ;
 MAX::= max:a LIST1:b {:
                         NodeTree nodo = new NodeTree(new Term(max), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(MAX));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren( b);  //arbol.addChildren(nodo, b);
                         RESULT = arbol.root;
                     :} ;
 LENG::= length:a LIST1:b {:
                         NodeTree nodo = new NodeTree(new Term(length), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(LENG));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren( b);  //arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :} ;
 PRODUCT ::= product:a  LIST1:b{:
                         NodeTree nodo = new NodeTree(new Term(length), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(LENG));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren( b);  //arbol.addChildren(nodo, b);  
                         RESULT = arbol.root;
                     :} ; 
 SUM::= sum:a LIST1 :b{:
                         NodeTree nodo = new NodeTree(new Term(length), new Token(new Location(aleft, aright),a));
                         NodeTree nodoEXP = new NodeTree(new Term(LENG));  
                         ParserTree arbol = new ParserTree (nodoEXP); 
-                        arbol.addChildren(nodo, b);  
+                        arbol.addChildren( b);  //arbol.addChildren(nodo, b); 
                         RESULT = arbol.root;
                     :}; 
 FUNCIONHASKELL::= CALCULAR:a {:
@@ -577,13 +577,7 @@ LIST1::= CONCATENAR:a{: NodeTree nodoEXP = new NodeTree(new Term(LIST1));
                         arbol.addChildren(a); 
                         RESULT = arbol.root;
                     :}
-    | identificador :a {:
-                        NodeTree nodo = new NodeTree(new Term(ID), new Token(new Location(aleft, aright),a)); 
-                        NodeTree nodoEXP = new NodeTree(new Term(LIST1));
-                        ParserTree arbol = new ParserTree (nodoEXP);
-                        arbol.addChildren(nodo); 
-                        RESULT = arbol.root;
-                    :}
+    
     | ARREGLO:a {:
                         
                         NodeTree nodoEXP = new NodeTree(new Term(LIST1));
@@ -591,25 +585,42 @@ LIST1::= CONCATENAR:a{: NodeTree nodoEXP = new NodeTree(new Term(LIST1));
                         arbol.addChildren(a); 
                         RESULT = arbol.root;
                     :}
-    | cadena:a {:       NodeTree nodo = new NodeTree(new Term(cadena), new Token(new Location(aleft, aright),a,_string));  
-                        NodeTree nodoEXP = new NodeTree(new Term(LIST1));
-                        ParserTree arbol = new ParserTree (nodoEXP);
-                        arbol.addChildren(nodo); 
-                        RESULT = arbol.root;
-                :}
+    
     | dolar LIST:a dolar{: NodeTree nodoEXP = new NodeTree(new Term(LIST1));
                         ParserTree arbol = new ParserTree (nodoEXP);
                         arbol.addChildren(a); 
                         RESULT = arbol.root;
                         :}
-    | porcentaje:a {:
-                        NodeTree nodo = new NodeTree(new Term(porcentaje), new Token(new Location(aleft, aright),a)); 
+    | OPLIST2 :a {:
+
                         NodeTree nodoEXP = new NodeTree(new Term(LIST1));
+                        ParserTree arbol = new ParserTree (nodoEXP);
+                        arbol.addChildren(a); 
+                        RESULT = arbol.root;
+                :}
+   
+    
+    ;
+
+OPLIST2::= porcentaje:a {:
+                        NodeTree nodo = new NodeTree(new Term(porcentaje), new Token(new Location(aleft, aright),a)); 
+                        NodeTree nodoEXP = new NodeTree(new Term(OPLIST2));
                         ParserTree arbol = new ParserTree (nodoEXP);
                         arbol.addChildren(nodo); 
                         RESULT = arbol.root;
-                    :}
-    ;
+                    :} | cadena:a {:      
+                        NodeTree nodo = new NodeTree(new Term(cadena), new Token(new Location(aleft, aright),a,_string));  
+                        NodeTree nodoEXP = new NodeTree(new Term(OPLIST2));
+                        ParserTree arbol = new ParserTree (nodoEXP);
+                        arbol.addChildren(nodo); 
+                        RESULT = arbol.root;
+                :}  | identificador :a {:
+                        NodeTree nodo = new NodeTree(new Term(ID), new Token(new Location(aleft, aright),a)); 
+                        NodeTree nodoEXP = new NodeTree(new Term(OPLIST2));
+                        ParserTree arbol = new ParserTree (nodoEXP);
+                        arbol.addChildren(nodo); 
+                        RESULT = arbol.root;
+                    :} ;
 
 LIST3::= CONCATENAR:a {:
                         
@@ -618,13 +629,7 @@ LIST3::= CONCATENAR:a {:
                         arbol.addChildren(a); 
                         RESULT = arbol.root;
                     :}
-    | cadena:a{:        
-                        NodeTree nodo = new NodeTree(new Term(cadena), new Token(new Location(aleft, aright),a,_string));  
-                        NodeTree nodoEXP = new NodeTree(new Term(LIST1));
-                        ParserTree arbol = new ParserTree (nodoEXP);
-                        arbol.addChildren(nodo); 
-                        RESULT = arbol.root;
-                :}
+    
     | dolar LLAMARFUNCION:a dolar{:
                         
                         NodeTree nodoEXP = new NodeTree(new Term(LIST1));
@@ -632,14 +637,7 @@ LIST3::= CONCATENAR:a {:
                         arbol.addChildren(a); 
                         RESULT = arbol.root;
                     :}
-    | identificador :a {:
-                        NodeTree nodo = new NodeTree(new Term(ID), new Token(new Location(aleft, aright),a)); 
-                        NodeTree nodoEXP = new NodeTree(new Term(LIST1));
-                        ParserTree arbol = new ParserTree (nodoEXP);
-                        arbol.addChildren(nodo); 
-                        RESULT = arbol.root;
-                    :}
-   
+    
     | dolar LIST dolar:a {:
                         NodeTree nodo = new NodeTree(new Term(ID), new Token(new Location(aleft, aright),a)); 
                         NodeTree nodoEXP = new NodeTree(new Term(LIST1));
@@ -647,13 +645,13 @@ LIST3::= CONCATENAR:a {:
                         arbol.addChildren(nodo); 
                         RESULT = arbol.root;
                     :}
-    | porcentaje:a {:
-                        NodeTree nodo = new NodeTree(new Term(porcentaje), new Token(new Location(aleft, aright),a)); 
+    |OPLIST2 :a {:
+
                         NodeTree nodoEXP = new NodeTree(new Term(LIST1));
                         ParserTree arbol = new ParserTree (nodoEXP);
-                        arbol.addChildren(nodo); 
-                        RESULT = arbol.root;
-                    :}
+                        arbol.addChildren(a); 
+                        RESULT = arbol.root;:}
+   
     ;
 
 CONCATENAR::=LIST1:c masmas:a LIST1:b{:
